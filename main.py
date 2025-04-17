@@ -1,12 +1,16 @@
 import streamlit as st
 import fitz
 from groq import Groq
+import os
 
 GROQ_API_KEY = "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"
 if not GROQ_API_KEY:
     st.error("A chave GROQ_API_KEY não foi definida corretamente.")
     st.stop()  
 client = Groq(api_key = GROQ_API_KEY)
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGO_PATH = os.path.join(CURRENT_DIR, "logo.png")
 
 def extract_files(uploader):
     text = ""
@@ -28,7 +32,6 @@ def chat_with_groq(prompt, context):
 
 def main():
     st.title("Gerenciamento de Tarefa Escolar")
-    st.image("logo.png", width = 100, caption = "Sistema Inteligente")
     with st.sidebar:
         st.header("UPLoader Files")
         uploader = st.file_uploader("Adicione Arquivos", type = "pdf", accept_multiple_files = True)
